@@ -1,27 +1,27 @@
 <?php
-echo "Решение задачь в самом тексте PHP файла. Задача 1 и задача 2"; 
-exit(); // причина не правильный запрос к API
+echo "Решение задач в самом тексте PHP файла. Задача 1 и задача 2"; 
+exit(); // причина не правильный запрос к API - Что это значит? Зачем? Почему? Какое имеет отношение к задаче?
 //задача 2  в конце
 
 /* **Задача1: написать функцию, которая будет добавлять заказы в эту таблицу.***/
-/* Добавляются заказы с помощью MSQL запроса после проверок*/
+/* Добавляются заказы с помощью MySQL запроса после проверок*/
 
 // функция для API (api.site.com) броня предположительно
 function apisitecom($event_id2, $event_date2, $ticket_adult_price2, $ticket_adult_quantity2, $ticket_kid_price2,$ticket_kid_quantity2, $barcode2) {
   $query_data = array(
     'client' => 'x',
-    'q' => $event_id2,
-    'hl'=>$event_date2,
-    'sl' => $ticket_adult_price2,
-    'sl2' => $ticket_adult_quantity2,
-    'sl3' => $ticket_kid_price2,
-    'sl4' => $ticket_kid_quantity2,
-    'tl' => $barcode2
+    'q'      => $event_id2,
+    'hl'.    => $event_date2,
+    'sl'     => $ticket_adult_price2,
+    'sl2'    => $ticket_adult_quantity2,
+    'sl3'    => $ticket_kid_price2,
+    'sl4'    => $ticket_kid_quantity2,
+    'tl'     => $barcode2// Зачем 2? Не читаемые именования
   );
   $filename = 'https://api.site.com/book';
   $options = array(
     'http' => array(
-     // 'user_agent' => 'Mozilla/5.0 (Windows NT 6.0; rv:26.0) Gecko/20100101 Firefox/26.0',
+     // 'user_agent' => 'Mozilla/5.0 (Windows NT 6.0; rv:26.0) Gecko/20100101 Firefox/26.0',// зачем закомментировано, зачем оставлено?
         'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67',
       'method' => 'POST',
       'header' => 'Content-type: application/x-www-form-urlencoded',
@@ -39,7 +39,7 @@ function apisitecom($event_id2, $event_date2, $ticket_adult_price2, $ticket_adul
 function apisitecomapprove($barcode3) {
   $query_data = array(
     'client' => 'x',
-    'tl' => $barcode3
+    'tl' => $barcode3 // 3 зачем?
   );
   $filename1 = 'https://api.site.com/approve';
   $options1= array(
@@ -56,7 +56,7 @@ function apisitecomapprove($barcode3) {
   
   return json_decode($response1);
 }
-//допустим есть аргументы
+//допустим есть аргументы // Почему допустим, задача конкретная?
 $event_id;
 $event_date;
 $ticket_adult_price;
@@ -79,7 +79,7 @@ $rand_max=$event_id1+$event_date1+$ticket_adult_price1+$ticket_adult_quantity1+$
 
 do 
 {
-//случайное число
+//случайное число // что случайное число, мд5 и проверка, это видно, не понятно зачем?
 $rand=rand(0,$rand_max);
 //barcode в виде md5
 $barcode= md5($rand);
@@ -104,7 +104,7 @@ if ($tr1=='order successfully aproved')
     ini_set('display_errors', 0);
     $conect=mysqli_connect($host, $user, $password, $database); //подключаемся к серверу
 
-    if(!$conect)
+    if(!$conect)// необходим линтер, очень тяжело читать такой код
         {
         echo "<div style='color:red'>Не возможно соединиться с базой данных. Подключите базу ...  </div>" ; 
         }
@@ -130,6 +130,8 @@ mysqli_query($conect, $team);
  // закрытие соединения с БД
    mysql_close($conect);
 }
+
+// как запустить? где инструкция?
 
 /*### Задание №2 А ###
 event_id (уникальный ид события)записывать номер, обозначающий льготный или групповой билет, можно с
@@ -171,7 +173,7 @@ id  | event_id  | event_date          | ticket_adult_price  | ticket_adult_quant
 2   | 006       | 2021-07-29 18:00:00 | 1000                | 0                      | 800               | 2                    | 22222222                                                                          | 00364    | 1600         | 2021-01-12 16:62:08
 3   | 003       | 2021-08-15 17:00:00 | 700                 | 4                      | 450               | 3                    | 33333333                                                                          | 00015    | 4150         | 2021-01-13 10:08:45
 4   | 003       | 2021-08-15 17:00:00 | 700                 | 4                      | 450               | 3                    | 11111111.22222222.33333333.44444444.55555555.66666666.77777777.88888888.99999999. | 00015    | 3735         | 2021-01-13 10:08:45
-
+// Не показана ни нормализация, ни связи
  */
 ?>
 
